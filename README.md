@@ -64,3 +64,15 @@ panAndZoom.onTap += screenPosition => {
   Debug.Log("The world was tapped at " + worldPosition + "!");
 };
 ```
+
+### Bound camera movement
+
+You can constrain a camera to a given area by defining bounds either through the inspector (make sure to enable camera bounds) or in code:
+
+```cs
+// The player will not be able to see anything outside of these bounds
+panAndZoom.boundMinX = 0;
+panAndZoom.boundMaxX = 100;
+panAndZoom.boundMinY = 0;
+panAndZoom.boundMaxY = 100;
+```
