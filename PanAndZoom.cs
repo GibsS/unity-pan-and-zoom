@@ -246,7 +246,7 @@ public class PanAndZoom : MonoBehaviour {
             float marginY = margin.y;
 
             float camMaxX = boundMaxX - marginX;
-            float camMaxY = boundMaxX - marginY;
+            float camMaxY = boundMaxY - marginY;
             float camMinX = boundMinX + marginX;
             float camMinY = boundMinY + marginY;
 
