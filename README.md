@@ -1,6 +1,6 @@
 # unity-pan-and-zoom
 
-A modular, customisable and light Unity MonoBehaviour for handling tap, swipe and pinch motions on mobile.
+A light Unity MonoBehaviour for handling tap, swipe and pinch motions on mobile.
 
 Features:
 - Can be used to control a 2D orthographic camera out of the box.
@@ -12,7 +12,7 @@ Features:
 
 You can:
 - Download the [PanAndZoom.cs](https://raw.githubusercontent.com/GibsS/unity-pan-and-zoom/master/PanAndZoom.cs) file and place it in your Unity project.
-- Add this repository as a submodule of your own if you are using git.
+- Add this repository as a submodule if you are using git.
 
 ## How to
 
