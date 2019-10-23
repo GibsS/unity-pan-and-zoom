@@ -67,7 +67,6 @@ public class PanAndZoom : MonoBehaviour {
     }
 
     void Update() {
-
         if (useMouse && canUseMouse) {
             UpdateWithMouse();
         } else {
@@ -114,7 +113,7 @@ public class PanAndZoom : MonoBehaviour {
         }
 
         if (Input.mouseScrollDelta.y != 0) {
-            OnPinch(1, Input.mouseScrollDelta.y < 0 ? (1 / mouseScrollSpeed) : mouseScrollSpeed, Vector2.right);
+            OnPinch(Input.mousePosition, 1, Input.mouseScrollDelta.y < 0 ? (1 / mouseScrollSpeed) : mouseScrollSpeed, Vector2.right);
         }
     }
 
@@ -175,7 +174,7 @@ public class PanAndZoom : MonoBehaviour {
             float currentDistance = Vector2.Distance(touch0.position, touch1.position);
 
             if (previousDistance != currentDistance) {
-                OnPinch(previousDistance, currentDistance, (touch1.position - touch0.position).normalized);
+                OnPinch((touch0.position + touch1.position) / 2, previousDistance, currentDistance, (touch1.position - touch0.position).normalized);
             }
         } else {
             if (isTouching) {
@@ -203,7 +202,7 @@ public class PanAndZoom : MonoBehaviour {
             cam.transform.position -= (cam.ScreenToWorldPoint(deltaPosition) - cam.ScreenToWorldPoint(Vector2.zero));
         }
     }
-    void OnPinch(float oldDistance, float newDistance, Vector2 touchDelta) {
+    void OnPinch(Vector2 center, float oldDistance, float newDistance, Vector2 touchDelta) {
         if (onPinch != null) {
             onPinch(oldDistance, newDistance);
         }
@@ -212,7 +211,13 @@ public class PanAndZoom : MonoBehaviour {
             if (cam == null) cam = Camera.main;
 
             if (cam.orthographic) {
+                var currentPinchPosition = cam.ScreenToWorldPoint(center);
+
                 cam.orthographicSize = Mathf.Max(0.1f, cam.orthographicSize * oldDistance / newDistance);
+
+                var newPinchPosition = cam.ScreenToWorldPoint(center);
+
+                cam.transform.position -= newPinchPosition - currentPinchPosition;
             } else {
                 cam.fieldOfView = Mathf.Clamp(cam.fieldOfView * oldDistance / newDistance, 0.1f, 179.9f);
             }
